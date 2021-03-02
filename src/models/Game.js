@@ -30,6 +30,17 @@ class Game {
         return gameResponse[TUPLES][0];
     }
 
+    static async getGameStateById (id) {
+        const gameResponse = await conn.query(`
+            SELECT winner, state, players FROM games
+            WHERE id = :id
+        ;`, {
+            replacements: { id }
+        });
+
+        return gameResponse[TUPLES][0];
+    }
+
 }
 
 export default Game;
