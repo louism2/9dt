@@ -144,6 +144,17 @@ class Move {
         return movesResponse[TUPLES];
     }
 
+    static async getMoveById (moveId) {
+        const moveQuery = await conn.query(`
+            SELECT * FROM moves
+            WHERE id = :moveId
+        ;`, {
+            replacements: { moveId }
+        });
+
+        return moveQuery[TUPLES][0];
+    }
+
 }
 
 export default Move;

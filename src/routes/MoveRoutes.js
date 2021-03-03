@@ -68,6 +68,26 @@ router.get("/drop-token/:gameId/moves", (req, res) => {
     });
 });
 
+// Get Move
+router.get("/drop-token/:gameId/moves/:moveId", (req, res) => {
+    const { gameId, moveId } = req.params;
+
+    const isValid = validateGetMoveRequest(gameId, moveId);
+    if (!isValid) {
+        return res.status(400).send();
+    }
+
+    Move.getMoveById(moveId).then((move) => {
+        if (!move) {
+            res.status(404).send();
+        } else {
+            const { type, player, column } = move;
+            res.status(200).send({ type, player, column });
+        }
+    }).catch((err) => {
+        res.status(500).send();
+    });
+});
 
 // VALIDATORS //
 const validateCreateMoveRequest = (gameId, playerName, column) => {
@@ -100,6 +120,18 @@ const validateGetMovesRequest = (gameId, start, until) => {
     } else {
         return true;
     }
+}
+
+const validateGetMoveRequest = (gameId, moveId) => {
+    if (!isUUID(gameId)) {
+        return false;
+    }
+
+    if (!isUUID(moveId)) {
+        return false;
+    }
+
+    return true;
 }
 
 export default router;
