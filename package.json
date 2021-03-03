@@ -2,10 +2,12 @@
   "name": "9dt",
   "version": "1.0.0",
   "description": "98point6 Drop Token ",
-  "main": "server.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "npm run build && nodemon",
-    "build": "babel ./src --out-dir dist/"
+    "build": "babel ./src --out-dir dist/",
+    "start-container": "node ./dist/server.js",
+    "start-compose": "npx sequelize db:migrate && npm run start-container"
   },
   "repository": {
     "type": "git",
@@ -23,7 +25,8 @@
     "@babel/plugin-transform-runtime": "^7.13.9",
     "@babel/preset-env": "^7.13.9",
     "nodemon": "^2.0.7",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sequelize-cli": "^6.2.0"
   },
   "dependencies": {
     "express": "^4.17.1",

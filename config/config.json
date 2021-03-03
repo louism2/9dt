@@ -5,5 +5,12 @@
     "database": "ninedt",
     "host": "127.0.0.1",
     "dialect": "postgres"
-  }
+  },
+  "compose": {
+    "dialect": "postgres",
+    "host": "db",
+    "password": "postgres",
+    "username": "postgres",
+    "database": "ninedt"
+}
 }

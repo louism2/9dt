@@ -1,0 +1,9 @@
+FROM postgres:9.6-alpine
+
+ARG APP_DIR=/docker-entrypoint-initdb.d
+RUN mkdir -p ${APP_DIR}
+
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+
+COPY ./init.sql /docker-entrypoint-initdb.d
