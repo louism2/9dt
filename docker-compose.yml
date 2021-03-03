@@ -16,6 +16,7 @@ services:
     build:
       context: ./docker-compose
       dockerfile: Dockerfile-db
+    image: postgres:12.6-alpine
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
