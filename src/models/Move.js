@@ -131,6 +131,19 @@ class Move {
         });
     }
 
+    static async getMoves (gameId, start, until) {
+        let rangeQuery = start >= 0 ? `OFFSET ${start} LIMIT ${(until - start) + 1}` : "";
+        const movesResponse = await conn.query(`
+            SELECT * FROM moves
+            WHERE "gameId" = :gameId ORDER BY "createdAt"
+            ${rangeQuery}
+        ;`, {
+            replacements: { gameId }
+        });
+
+        return movesResponse[TUPLES];
+    }
+
 }
 
 export default Move;
