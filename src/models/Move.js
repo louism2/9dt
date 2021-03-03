@@ -132,13 +132,19 @@ class Move {
     }
 
     static async getMoves (gameId, start, until) {
-        let rangeQuery = start >= 0 ? `OFFSET ${start} LIMIT ${(until - start) + 1}` : "";
+        let rangeQuery = "";
+        let limit;
+        if (start >= 0) {
+            limit = (until - start) + 1;
+            rangeQuery = `OFFSET :start LIMIT :limit`;
+        }
+
         const movesResponse = await conn.query(`
             SELECT * FROM moves
             WHERE "gameId" = :gameId ORDER BY "createdAt"
             ${rangeQuery}
         ;`, {
-            replacements: { gameId }
+            replacements: { gameId, start, limit }
         });
 
         return movesResponse[TUPLES];

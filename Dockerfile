@@ -1,4 +1,4 @@
-FROM node:10
+FROM node:15
 
 RUN apt-get update && \
     apt-get install git -y
