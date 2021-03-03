@@ -30,7 +30,6 @@ router.post("/drop-token", (req, res) => {
             res.send({gameId: game.id});
         }
     }).catch((err) => {
-        console.log(err);
         res.status(500).send();
     });
 });

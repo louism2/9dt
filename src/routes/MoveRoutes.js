@@ -26,7 +26,23 @@ router.post("/drop-token/:gameId/:playerName", (req, res) => {
             res.send({move: `${id}/moves/${moveNumber}`});
         }
     }).catch((err) => {
-        console.log(err)
+        res.status(500).send();
+    });
+});
+
+// Player quit
+router.delete("/drop-token/:gameId/:playerName", (req, res) => {
+    const { gameId, playerName } = req.params;
+
+    Move.playerQuit(gameId, playerName).then((response) => {
+        if (response.gameNotFoundError) {
+            res.status(404).send();
+        } else if (response.gameCompletedError) {
+            res.status(410).send();
+        } else {
+            res.status(202).send();
+        }
+    }).catch((err) => {
         res.status(500).send();
     });
 });

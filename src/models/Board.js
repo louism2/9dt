@@ -15,8 +15,6 @@ class Board {
 
         this.moves.forEach((move) => columns[move.column].push(move.player));
 
-        console.log(columns);
-
         return columns;
     }
 
@@ -71,7 +69,6 @@ class Board {
     }
 
     detectDiagonalMatch (column) {
-        console.log(this.boardSpace);
         const row = this.boardSpace[column].length - 1;
 
         let hasDiagonalMatch = false;

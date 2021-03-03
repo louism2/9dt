@@ -103,6 +103,34 @@ class Move {
         return false;
     }
 
+    static async playerQuit (gameId, playerName) {
+        const gameResponse = await conn.query(`
+            SELECT state FROM games
+            WHERE id = :gameId AND
+            :playerName = ANY(players);
+        `, {
+            replacements: { gameId, playerName }
+        });
+
+        const game = gameResponse[TUPLES][0];
+        if (!game) {
+            return {gameNotFoundError: "Game with id or player not found"};
+        } else if (game.state === 'DONE') {
+            return {gameCompletedError: "Game already completed"};
+        }
+
+        return await conn.query(`
+            UPDATE games 
+            SET state = 'DONE'
+            WHERE id = :gameId;
+
+            INSERT INTO moves ("gameId", type, player)
+            VALUES (:gameId, 'QUIT', :playerName);
+        `, {
+            replacements: { gameId, playerName }
+        });
+    }
+
 }
 
 export default Move;
