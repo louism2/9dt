@@ -26,6 +26,7 @@ router.post("/drop-token/:gameId/:playerName", (req, res) => {
             res.send({move: `${id}/moves/${moveNumber}`});
         }
     }).catch((err) => {
+        console.log(">>>>>>>> ERR: ", err)
         res.status(500).send();
     });
 });

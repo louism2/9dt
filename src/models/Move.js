@@ -61,6 +61,7 @@ class Move {
         // is there a win?
         const isWinningDrop = this.determineIfWinningDrop(game, moves, column, playerName);
         if (isWinningDrop) {
+            console.log(">>>>>> isWinningDrop: ", isWinningDrop)
             await conn.query(`
                 UPDATE games SET state = 'DONE', winner = :playerName
                 WHERE id = :gameId;
@@ -87,16 +88,19 @@ class Move {
 
         const hasVerticalMatch = board.detectVerticalMatch(column);
         if (hasVerticalMatch) {
+            console.log(">>>>>> VERTICAL MATCH")
             return true;
         }
 
         const hasHorizontalMatch = board.detectHorizontalMatch(column);
         if (hasHorizontalMatch) {
+            console.log(">>>>>> HORIZONTAL MATCH")
             return true;
         }
 
         const hasDiagonalMatch = board.detectDiagonalMatch(column);
         if (hasDiagonalMatch) {
+            console.log(">>>>>> DIAGONAL MATCH")
             return true;
         }
 
