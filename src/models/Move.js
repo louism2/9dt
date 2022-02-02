@@ -11,7 +11,7 @@ class Move {
 
     static async createMove (gameId, column, playerName) {
         // Does game exist?
-        const gameQuery = await conn.query(`
+        const gameQuery = conn.query(`
             SELECT * FROM games 
             WHERE id = :gameId AND 
             :playerName = ANY(players) AND
@@ -21,7 +21,7 @@ class Move {
         });
 
         // Is it the submitting players turn?
-        const movesQuery = await conn.query(`
+        const movesQuery = conn.query(`
             SELECT * FROM moves
             WHERE "gameId" = :gameId
             ORDER BY "createdAt"

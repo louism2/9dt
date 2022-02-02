@@ -1,6 +1,5 @@
 import fs from "fs";
 import Sequelize from "sequelize";
-// const { Sequelize } = require('sequelize');
 
 // Utility class to connect to the Postgres DB using Sequelize.
 //
@@ -33,5 +32,4 @@ class DbService {
     }
 }
 
-//module.exports = DbService;
 export default DbService;
