@@ -12,9 +12,14 @@ export const isValidPlayerName = (name) => {
 }
 
 export const isNumber = (num) => {
+    console.log('>>>>>>> isNumber: ', num)
     if (typeof num !== "number") {
         return false;
     }
 
     return true;
+}
+
+export const coupledCaller = (arg) => {
+    return isNumber(arg)
 }
